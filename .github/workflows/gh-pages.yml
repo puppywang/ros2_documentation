@@ -1,0 +1,112 @@
+name: Build and Deploy ROS 2 Foxy Docs
+
+# 仅当推送到 foxy 分支时触发
+on:
+  push:
+    branches:
+      - foxy
+
+jobs:
+  # 1. 单元测试
+  test:
+    name: Test (doc8 & doc tools)
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --no-warn-script-location --user \
+            -r requirements.txt -c constraints.txt
+
+      - name: Test doc8
+        run: make test
+
+      - name: Test doc tools
+        run: make test-tools
+
+  # 2. 代码风格检查
+  lint:
+    name: Lint
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install --no-warn-script-location --user \
+            -r requirements.txt -c constraints.txt
+
+      - name: Lint
+        run: make lint
+
+  # 3. 拼写检查
+  spellcheck:
+    name: Spellcheck
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install --no-warn-script-location --user \
+            -r requirements.txt -c constraints.txt
+
+      - name: Spellcheck
+        run: make spellcheck
+
+  # 4. 构建并发布文档
+  deploy:
+    name: Build & Deploy to gh-pages
+    needs: [test, lint, spellcheck]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # 取出 gh-pages 分支以便后续比较和清理
+          fetch-depth: 0
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --no-warn-script-location --user \
+            -r requirements.txt -c constraints.txt
+
+      - name: Build the docs
+        run: make html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/html
+          publish_branch: gh-pages
+          keep_history: false
+          # 强制清空 gh-pages 分支后再推送，避免遗留旧文件
+          force_orphan: true
