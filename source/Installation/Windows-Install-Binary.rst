@@ -56,9 +56,11 @@ Open a Command Prompt and type the following to install them via Chocolatey:
 Install OpenSSL
 ^^^^^^^^^^^^^^^
 
-Download the *Win64 OpenSSL v1.1.1n* OpenSSL installer from `this page <https://slproweb.com/products/Win32OpenSSL.html>`__.
-Scroll to the bottom of the page and download *Win64 OpenSSL v1.1.1n*.
-Don't download the Win32 or Light versions, or the v3.X.Y installers.
+Open a Command Prompt and type the following to install OpenSSL via Chocolatey:
+
+.. code-block:: bash
+
+   choco install -y openssl --version 1.1.1.2100
 
 Run the installer with default parameters, as the following commands assume you used the default installation directory.
 
@@ -82,7 +84,8 @@ Install Visual Studio 2019.
 If you already have a paid version of Visual Studio 2019 (Professional, Enterprise), skip this step.
 
 Microsoft provides a free of charge version of Visual Studio 2019, named Community, which can be used to build applications that use ROS 2.
-`You can download the installer directly through this link. <https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16&src=myvs&utm_medium=microsoft&utm_source=my.visualstudio.com&utm_campaign=download&utm_content=vs+community+2019>`_
+`You can download the installer directly through this link. Community version: <https://aka.ms/vs/16/release/vs_community.exe>`_
+`Professional version: <https://aka.ms/vs/16/release/vs_professional.exe>`
 
 Make sure that the Visual C++ features are installed.
 
@@ -127,7 +130,7 @@ As some chocolatey packages rely on it, we start by installing CMake
 
 You will need to append the CMake bin folder ``C:\Program Files\CMake\bin`` to your PATH.
 
-Please download these packages from `this <https://github.com/ros2/choco-packages/releases/latest>`__ GitHub repository.
+Please download these packages from `this <https://github.com/ros2/choco-packages/releases/tag/2020-02-24>`__ GitHub repository.
 
 * asio.1.12.1.nupkg
 * bullet.2.89.0.nupkg
@@ -150,6 +153,19 @@ You must also install some python dependencies for command-line tools:
 .. code-block:: bash
 
    python -m pip install -U catkin_pkg cryptography empy ifcfg lark-parser lxml netifaces numpy opencv-python pyparsing pyyaml setuptools rosdistro
+
+
+Install Qt5
+~~~~~~~~~~~
+
+Download the `5.12.X offline installer from Qt’s website<https://download.qt.io/archive/qt/5.12/5.12.12/>`__. Run the installer. Make sure to select the MSVC 2017 64-bit component under the Qt -> Qt 5.12.12 tree.
+
+Finally, in an administrator cmd.exe window set these environment variables. The commands below assume you installed it to the default location of C:\Qt.
+
+.. code-block:: bash
+   setx /m Qt5_DIR C:\Qt\Qt5.12.12\5.12.12\msvc2017_64
+   setx /m QT_QPA_PLATFORM_PLUGIN_PATH C:\dev\ros2_foxy\bin\platforms\
+
 
 RQt dependencies
 ~~~~~~~~~~~~~~~~
