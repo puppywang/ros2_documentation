@@ -1,18 +1,22 @@
-doc8
-docutils
-pip==22.0.2
+pip
 
-# 文档构建
+# 文档构建核心
 sphinx>=5.0,<6.0
+
+# Docutils 需在 >=0.14 且 <0.18 之间
+docutils>=0.14,<0.18
+
+# Read the Docs 主题及扩展
 sphinx-rtd-theme>=1.0,<2.0
 sphinx-copybutton>=0.4,<1.0
 sphinx-multiversion>=0.2.4,<0.3
-
-# 支持 Sphinx 5 的 sphinx-tabs
 sphinx-tabs>=3.4.0,<4.0
 
-# 其他文档工具
+# Apple Help / DevHelp / HTMLHelp
 sphinxcontrib-applehelp>=1.0.1
 sphinxcontrib-devhelp>=1.0.2
 sphinxcontrib-htmlhelp>=2.0.2
 sphinx-inline-tabs>=2023.4.21
+
+# 校验工具
+doc8>=0.9,<1.0
