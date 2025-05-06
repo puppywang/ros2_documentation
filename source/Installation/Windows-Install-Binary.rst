@@ -158,11 +158,15 @@ You must also install some python dependencies for command-line tools:
 Install Qt5
 ~~~~~~~~~~~
 
-Download the `5.12.X offline installer from Qt’s website<https://download.qt.io/archive/qt/5.12/5.12.12/>`__. Run the installer. Make sure to select the MSVC 2017 64-bit component under the Qt -> Qt 5.12.12 tree.
+Download the `5.12.X offline installer <https://download.qt.io/archive/qt/5.12/5.12.12/>`_ from Qt's website.
+Run the installer.
+Make sure to select the ``MSVC 2017 64-bit`` component under the ``Qt`` -> ``Qt 5.12.12`` tree.
 
-Finally, in an administrator cmd.exe window set these environment variables. The commands below assume you installed it to the default location of C:\Qt.
+Finally, in an administrator ``cmd.exe`` window set these environment variables.
+The commands below assume you installed it to the default location of ``C:\Qt``.
 
 .. code-block:: bash
+
    setx /m Qt5_DIR C:\Qt\Qt5.12.12\5.12.12\msvc2017_64
    setx /m QT_QPA_PLATFORM_PLUGIN_PATH C:\dev\ros2_foxy\bin\platforms\
 
