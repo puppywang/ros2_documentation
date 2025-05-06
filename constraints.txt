@@ -19,7 +19,7 @@ roman==3.3
 setuptools==59.6.0
 six==1.16.0
 snowballstemmer==2.2.0
-Sphinx==4.3.2
+Sphinx==5.0.2
 sphinx-copybutton==0.4.0
 sphinx-multiversion==0.2.4
 sphinx-rtd-theme==1.0.0
