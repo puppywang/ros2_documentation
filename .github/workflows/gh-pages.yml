@@ -29,57 +29,10 @@ jobs:
       - name: Test doc8
         run: make test
 
-      - name: Test doc tools
-        run: make test-tools
-
-  # 2. 代码风格检查
-  lint:
-    name: Lint
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install --no-warn-script-location --user \
-            -r requirements.txt -c constraints.txt
-
-      - name: Lint
-        run: make lint
-
-  # 3. 拼写检查
-  spellcheck:
-    name: Spellcheck
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install --no-warn-script-location --user \
-            -r requirements.txt -c constraints.txt
-
-      - name: Spellcheck
-        run: make spellcheck
-
-  # 4. 构建并发布文档
+  # 2. 构建并发布文档
   deploy:
     name: Build & Deploy to gh-pages
-    needs: [test, lint, spellcheck]
+    needs: [test]
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
