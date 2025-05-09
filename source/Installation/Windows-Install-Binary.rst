@@ -155,19 +155,14 @@ You must also install some python dependencies for command-line tools:
    python -m pip install -U catkin_pkg cryptography empy ifcfg lark-parser lxml netifaces numpy opencv-python pyparsing pyyaml setuptools rosdistro
 
 
-Install Qt5
-~~~~~~~~~~~
-
-Download the `5.12.X offline installer <https://download.qt.io/archive/qt/5.12/5.12.12/>`_ from Qt's website.
-Run the installer.
-Make sure to select the ``MSVC 2017 64-bit`` component under the ``Qt`` -> ``Qt 5.12.12`` tree.
+Setup Qt5 platform path
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Finally, in an administrator ``cmd.exe`` window set these environment variables.
-The commands below assume you installed it to the default location of ``C:\Qt``.
+The commands below assume you installed ros2 to default ``C:\dev\ros2_foxy`` location.
 
 .. code-block:: bash
 
-   setx /m Qt5_DIR C:\Qt\Qt5.12.12\5.12.12\msvc2017_64
    setx /m QT_QPA_PLATFORM_PLUGIN_PATH C:\dev\ros2_foxy\bin\platforms\
 
 
